@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}FlaskBank - Delete Account{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Delete Account</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h5>Warning!</h5>
+                    <p>You are about to delete the account for <strong>{{ account.user.name }}</strong> with a balance of <strong>${{ "%.2f"|format(account.balance) }}</strong>.</p>
+                    <p>This action cannot be undone. Are you sure you want to proceed?</p>
+                </div>
+                <form method="POST" action="{{ url_for('delete_account', account_id=account.id) }}">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger">Yes, Delete Account</button>
+                        <a href="{{ url_for('manage_accounts') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

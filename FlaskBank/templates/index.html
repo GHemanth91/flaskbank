@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block title %}FlaskBank - Welcome{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h1 class="display-4 mb-4">Welcome to FlaskBank</h1>
+                <p class="lead">A secure and easy way to manage your finances online.</p>
+                <hr class="my-4">
+                <p>Experience seamless banking with our user-friendly platform. Transfer money, check balances, and track your transactions with ease.</p>
+                <div class="mt-4">
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-2">Register</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg">Login</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-exchange-alt fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Easy Transfers</h5>
+                        <p class="card-text">Transfer money to other user accounts instantly with just a few clicks through our website.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Secure Banking</h5>
+                        <p class="card-text">Your financial data is protected with the highest security standards.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Track Transactions</h5>
+                        <p class="card-text">Monitor your transaction history and manage your finances effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

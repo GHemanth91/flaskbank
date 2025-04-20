@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+
+{% block title %}FlaskBank - Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Total Users</h5>
+            </div>
+            <div class="card-body text-center">
+                <h2>{{ users_count }}</h2>
+                <a href="{{ url_for('all_users') }}" class="btn btn-outline-danger mt-3">View All Users</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Total Transactions</h5>
+            </div>
+            <div class="card-body text-center">
+                <h2>{{ transactions_count }}</h2>
+                <a href="{{ url_for('all_transactions') }}" class="btn btn-outline-danger mt-3">View All Transactions</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Total Balance</h5>
+            </div>
+            <div class="card-body text-center">
+                <h2>${{ "%.2f"|format(total_balance) }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Pending Deposits</h5>
+            </div>
+            <div class="card-body text-center">
+                <h2>{{ pending_deposits_count }}</h2>
+                <a href="{{ url_for('admin_deposit_requests') }}" class="btn btn-outline-danger mt-3">View Deposit Requests</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header bg-danger text-white">
+        <h5 class="mb-0">Admin Actions</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="d-grid">
+                    <a href="{{ url_for('all_users') }}" class="btn btn-outline-danger btn-lg mb-3">Manage Users</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid">
+                    <a href="{{ url_for('all_transactions') }}" class="btn btn-outline-danger btn-lg mb-3">View Transactions</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid">
+                    <a href="{{ url_for('manage_accounts') }}" class="btn btn-outline-danger btn-lg mb-3">Manage Accounts</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid">
+                    <a href="{{ url_for('admin_deposit_requests') }}" class="btn btn-outline-danger btn-lg mb-3">Deposit Requests {% if pending_deposits_count > 0 %}<span class="badge bg-danger">{{ pending_deposits_count }}</span>{% endif %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

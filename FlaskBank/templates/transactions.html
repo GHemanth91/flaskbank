@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block title %}FlaskBank - Transaction History{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Transaction History</h4>
+    </div>
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('transactions') }}" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search by Transaction ID" name="transaction_id" value="{{ search_query }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+                {% if search_query %}
+                <a href="{{ url_for('transactions') }}" class="btn btn-secondary">Clear</a>
+                {% endif %}
+            </div>
+        </form>
+        {% if transactions %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in transactions %}
+                            <tr>
+                                <td><small class="text-muted">{{ transaction.transaction_id }}</small></td>
+                                <td>{{ transaction.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>
+                                    {% if transaction.transaction_type == 'deposit' %}
+                                        <span class="badge bg-success">Deposit</span>
+                                    {% elif transaction.transaction_type == 'withdraw' %}
+                                        <span class="badge bg-warning">Withdraw</span>
+                                    {% else %}
+                                        <span class="badge bg-info">Transfer</span>
+                                    {% endif %}
+                                </td>
+                                <td>${{ "%.2f"|format(transaction.amount) }}</td>
+                                <td>
+                                    {% if transaction.transaction_type == 'transfer' %}
+                                        {% if transaction.sender_id == current_user.id %}
+                                            To: {{ transaction.receiver.name }}
+                                        {% else %}
+                                            From: {{ transaction.sender.name }}
+                                        {% endif %}
+                                    {% elif transaction.transaction_type == 'deposit' %}
+                                        <span class="text-success">Admin Approved</span> Deposit
+                                    {% else %}
+                                        Withdrawal from account
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center">No transactions found.</p>
+        {% endif %}
+    </div>
+    <div class="card-footer text-center">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}
